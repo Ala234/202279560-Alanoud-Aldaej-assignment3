@@ -63,6 +63,7 @@ In this part, I used `localStorage` to save the user’s theme preference. When 
     </nav>
 </header>
 ```
+<img width="509" height="60" alt="image" src="https://github.com/user-attachments/assets/b61481a3-2248-46ca-8500-047516459df5" />
 
 In this part, I used navigation links to allow users to move between different sections of the portfolio such as About, Projects, Skills, and Contact. This makes the website more interactive and easier to use. AI helped me understand how internal navigation works and how it improves the overall user experience.
 
