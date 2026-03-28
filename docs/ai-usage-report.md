@@ -102,9 +102,6 @@ In this part, I used navigation links to allow users to move between different s
 In this part, I applied CSS transitions and hover effects to different elements, such as the theme button, project cards, and skill boxes. These effects make interactions feel smoother and give visual feedback when the user hovers over elements. AI helped me understand how transitions work in CSS and how they can be used to enhance user experience without making the design too complex.
 
 ## 4. Error handling
----
-
-## 4. Error handling
 
 ```html
 <form class="contact-form">
