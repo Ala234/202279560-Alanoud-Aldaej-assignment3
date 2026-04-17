@@ -6,17 +6,17 @@ During this assignment, I used one AI tool primarily as a supportive tool to hel
 
 ChatGPT was used as the main AI assistant during the project. Its use cases included:
 
-- **Code generation & debugging:**  
-I used ChatGPT to help debug HTML, CSS, and JavaScript issues, such as theme switching logic, layout issues, and minor implementation problems.
+- **Code generation & debugging:**
+I used ChatGPT to help debug HTML, CSS, and JavaScript issues, such as non-working buttons, layout problems, and fixing script errors. It also helped in troubleshooting issues related to API integration and improving functionality.
 
 - **Code review & explanations:**  
-ChatGPT helped explain some HTML, CSS, and JavaScript concepts, especially how interactive features work and how different parts of the code connect together.
+ChatGPT helped explain HTML, CSS, and JavaScript concepts, especially related to API integration, complex logic (such as filtering and sorting), and performance optimization. It clarified how different parts of the code work together.
 
 - **Documentation support:**  
 It assisted in improving the clarity and organization of documentation and project explanation.
 
 - **How to enhance user experience:**  
-ChatGPT was used to help me understand how to improve user experience through simple interactive features such as navigation, theme switching, transitions, and form validation.
+ChatGPT was used to understand how to improve user experience through interactive features such as filtering, dynamic content rendering, and smoother UI behavior.
 
 ---
 
@@ -315,6 +315,7 @@ In this part, AI was used to assist with implementing the filtering functionalit
 
   renderProjects();
 }
+```
 
  **CSS**
 ```css
@@ -323,58 +324,153 @@ In this part, AI was used to assist with implementing the filtering functionalit
   transform: scale(1.05);
 }
 ```
-[Watch Demo](https://raw.githubusercontent.com/Ala234/202279560-Alanoud-Aldaej-assignment3/refs/heads/main/docs/Demo%201.mp4)
+[Watch Demo](https://raw.githubusercontent.com/Ala234/202279560-Alanoud-Aldaej-assignment3/refs/heads/main/docs/Demo%202.mp4)
 
 >This is the layout After modifying AI's generated Code
 ---
 
-## 3. Smooth interaction
+## 3. State Management
+**HTML**
+```HTML
+<section id="visitor-name-section" class="section">
+  <h2>Welcome</h2>
 
-```css
-#theme-toggle {
-    transition: 0.3s, transform 0.2s;
-}
+  <div class="name-box">
+    <input type="text" id="visitor-name-input" placeholder="Enter your name">
+    <button id="save-name-btn">Save Name</button>
+    <button id="clear-name-btn">Clear</button>
+  </div>
 
-#theme-toggle:hover {
-    background: rgba(255,255,255,0.25);
-    transform: scale(1.05);
-}
+  <p id="visitor-greeting">Welcome, guest!</p>
+</section>
+```
+**JavaScript**
+```javascript
+// ===== Visitor Name State Management =====
 
-.project-card {
-  transition: transform 0.3s ease;
-}
+const visitorNameInput = document.getElementById("visitor-name-input");
+const saveNameBtn = document.getElementById("save-name-btn");
+const clearNameBtn = document.getElementById("clear-name-btn");
+const visitorGreeting = document.getElementById("visitor-greeting");
 
-.project-card:hover {
-  transform: translateY(-6px);
-}
+if (visitorGreeting) {
+  const savedName = localStorage.getItem("visitorName");
 
-.skill {
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+  if (savedName) {
+    visitorGreeting.textContent = `Welcome, ${savedName}!`;
+    if (visitorNameInput) {
+      visitorNameInput.value = savedName;
+    }
+  }
 
-.skill:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(199,125,255,0.5);
+  if (saveNameBtn) {
+    saveNameBtn.addEventListener("click", () => {
+      const name = visitorNameInput.value.trim();
+
+      if (name === "") {
+        visitorGreeting.textContent = "Please enter your name first.";
+        visitorGreeting.style.color = "#f87171";
+        return;
+      }
+
+      localStorage.setItem("visitorName", name);
+      visitorGreeting.textContent = `Welcome, ${name}!`;
+      visitorGreeting.style.color = "#ffffff";
+    });
+  }
+
+  if (clearNameBtn) {
+    clearNameBtn.addEventListener("click", () => {
+      localStorage.removeItem("visitorName");
+      visitorNameInput.value = "";
+      visitorGreeting.textContent = "Welcome, guest!";
+      visitorGreeting.style.color = "#ffffff";
+    });
+  }
 }
 ```
-<img width="1197" height="359" alt="image" src="https://github.com/user-attachments/assets/0788885b-2693-420e-a745-2c1ff8652969" />
+**CSS**
+```CSS
+/* ===== Visitor Name Section ===== */
+.name-box {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
-In this part, I applied CSS transitions and hover effects to different elements, such as the theme button, project cards, and skill boxes. These effects make interactions feel smoother and give visual feedback when the user hovers over elements. AI helped me understand how transitions work in CSS and how they can be used to enhance user experience without making the design too complex.
+.name-box input {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  min-width: 220px;
+}
 
-## 4. Error handling
+.name-box button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  background: #4b0bb1;
+  color: white;
+}
 
+.name-box button:hover {
+  opacity: 0.9;
+}
+
+#visitor-greeting {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+```
+
+<img width="722" height="276" alt="image" src="https://github.com/user-attachments/assets/a8912264-2791-4074-8315-9a079347334a" />
+
+
+In this part, AI helped me in implementing state management by storing and displaying the visitor’s name using localStorage. The website remembers the user’s name after refresh and allows clearing it when needed.
+
+## 4. Performance
+In this part, I evaluated my website using PageSpeed Insights. The initial performance score was not optimal, so I applied several optimizations with AI advices to improve speed and efficiency.
+
+**Adding ```media="all"```**
 ```html
-<form class="contact-form">
-  <input type="text" placeholder="Name" required>
-  <input type="email" placeholder="Email" required>
-  <textarea placeholder="Message" rows="5" required></textarea>
-  <button type="submit">Send Message</button>
-</form>
+    <link rel="stylesheet" href="css/styles.css" media="all">
+    <!-- for icons ( I used AI help here) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="All">
+</head>
 ```
+**Adding ```loading="lazy"``` to imegas**
+```html
+  <img src="asset/images/impact-hub.jpg" alt="KFUPM Impact Hub" loading="lazy" width="200" height="200">
+  <img src="asset/images/super-tour.jpg" alt="My Super Tour Guide"  loading="lazy" width="200" height="200">
+```
+**Adding ```descriptions``` to meta**
+```html
+<meta name="description" content="Alanoud Aldaej's Portfolio" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <img width="928" height="622" alt="image" src="https://github.com/user-attachments/assets/3da38a5c-6f0b-4d3d-a544-f9172248bdde" />
+```
+**Adding label to ```select```**
+```html
+<label for="sort-projects" class="visually-hidden">Sort:</label>
+    <select id="sort-projects">
+      <option value="default">Sort By</option>
+      <option value="name-asc">Name A-Z</option>
+      <option value="name-desc">Name Z-A</option>
+    </select>
+  </div>
+```
 
-In this part, I used built-in HTML validation using the `required` attribute to prevent empty inputs. Also, when entering an invalid email format, the browser automatically shows a message asking the user to include a valid format (such as including “@”). This provides basic error handling and improves the usability of the form. AI helped me understand how validation works and why it is important for user input.
+<img width="1360" height="662" alt="image" src="https://github.com/user-attachments/assets/05084fd3-b02d-4235-ab02-2573e27cbfee" />
 
+>After re-testing, the performance score improved significantly.
 ---
 
 ## Benefits
@@ -389,9 +485,9 @@ In this part, I used built-in HTML validation using the `required` attribute to 
 
 ## Challenges
 
-- Some AI suggestions needed adjustment to fit the project.
-- Not all suggested solutions were directly usable.
-- Required reviewing and modifying code to match assignment requirements.
+- Some AI-generated code did not work correctly at first (e.g., filter buttons were not responsive).
+- The initial layout and structure were not well organized and needed adjustments.
+- Some suggestions required modification to fit the project requirements and improve usability.
 
 ---
 
@@ -399,11 +495,11 @@ In this part, I used built-in HTML validation using the `required` attribute to 
 
 Through using AI tools in this assignment, I learned:
 
-- How to implement theme switching using JavaScript and CSS.
-- How to store and retrieve data using `localStorage`.
-- How navigation improves usability in a portfolio.
-- How transitions enhance interaction.
-- How basic validation supports error handling.
+-How to implement API integration (e.g., fetching and displaying GitHub repositories).
+-How to build complex logic such as filtering and sorting functionality using JavaScript.
+-How to debug HTML, CSS, and JavaScript issues effectively.
+-How to improve website performance and understand why performance issues occur.
+-How to enhance user experience by making the interface more interactive and responsive.
 
 ---
 
