@@ -22,46 +22,274 @@ ChatGPT was used to help me understand how to improve user experience through si
 
 # Detailed AI Usage
 
-## 1. Data handling
+## 1. API Integration
 
-```javascript
-(() => {
-  const root = document.documentElement;
-  const themeToggle = document.getElementById("theme-toggle");
-
-  function applyTheme(theme) {
-    root.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-    themeToggle.textContent = theme === "dark" ? "☀️ Light" : "🌙 Dark";
-  }
-
-  applyTheme(localStorage.getItem("theme") || "dark");
-
-  themeToggle.addEventListener("click", () => {
-    const current = root.getAttribute("data-theme");
-    applyTheme(current === "dark" ? "light" : "dark");
-  });
-})();
+**HTML**
+```HTML
+<!-- API Section -->
+<section id="github" class="section">
+  <h2>GitHub Repositories </h2>
+  <div id="repo-container" class="projects-grid"></div>
+  <p id="api-message"></p>
+</section>  
 ```
-<img width="216" height="80" alt="image" src="https://github.com/user-attachments/assets/12cd8745-8d53-49c1-aa3a-2fe889210ef7" />
+**JavaScript**
+```javascript
+// ===== GitHub API Integration =====
 
-In this part, I used `localStorage` to save the user’s theme preference. When the page loads, the saved value is retrieved and applied automatically. If no value is found, a default theme is used. AI helped me understand how data can be stored and retrieved, and how it connects with the interface to update the page dynamically.
+const repoContainer = document.getElementById("repo-container");
+const apiMessage = document.getElementById("api-message");
+
+fetch("https://api.github.com/users/ala234/repos")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("API failed");
+    }
+    return response.json();
+  })
+  .then(data => {
+    repoContainer.innerHTML = "";
+
+    data.slice(0, 6).forEach(repo => {
+      const card = document.createElement("div");
+      card.classList.add("project-card");
+
+      card.innerHTML = `
+        <h3>${repo.name}</h3>
+        <p>${repo.description || "No description available"}</p>
+        <a href="${repo.html_url}" target="_blank">View Project</a>
+      `;
+
+      repoContainer.appendChild(card);
+    });
+  })
+  .catch(error => {
+    apiMessage.textContent = "⚠️ Failed to load GitHub projects. Please try again later.";
+    console.error(error);
+  });
+```
+<img width="1280" height="340" alt="image" src="https://github.com/user-attachments/assets/0250fe3e-19bc-4725-b2c8-6623fc772d5a" />
+
+
+
+> In  this part, I used AI assistance to implement GitHub API integration for displaying repositories. The initial AI-generated output was unstructured, so I improved it by reorganizing the layout and enhancing the design to fit the portfolio style.
+
+## Applying Modification:
+
+**HTML**
+```HTML
+<!-- API Section -->
+<section id="github" class="section">
+  <h2>Featured Projects</h2>
+  <div id="repo-container" class="projects-grid"></div>
+  <p id="api-message"></p>
+</section>
+```
+**JavaScript**
+```javascript
+// ===== GitHub API Integration =====
+
+const repoContainer = document.getElementById("repo-container");
+const apiMessage = document.getElementById("api-message");
+
+fetch("https://api.github.com/users/Ala234/repos")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("API failed");
+    }
+    return response.json();
+  })
+  .then(data => {
+    repoContainer.innerHTML = "";
+    apiMessage.textContent = "";
+
+    const filteredRepos = data
+      .filter(repo =>
+        !repo.name.toLowerCase().includes("assignment") &&
+        !repo.fork
+      )
+      .slice(0, 4);
+
+    filteredRepos.forEach(repo => {
+      const card = document.createElement("div");
+      card.classList.add("project-card");
+
+      const shortName =
+        repo.name.length > 25
+          ? repo.name.substring(0, 25) + "..."
+          : repo.name;
+
+      card.innerHTML = `
+        <div class="repo-icon">
+          <i class="fa-brands fa-github"></i>
+        </div>
+        <h3>${shortName}</h3>
+        <p>${repo.description || "No description available"}</p>
+        <a href="${repo.html_url}" target="_blank">View Project</a>
+      `;
+
+      repoContainer.appendChild(card);
+    });
+
+    if (filteredRepos.length === 0) {
+      apiMessage.textContent = "No featured GitHub projects found right now.";
+    }
+  })
+  .catch(error => {
+    apiMessage.textContent = "⚠️ Failed to load featured projects. Please try again later.";
+    console.error(error);
+  });
+```
+**CSS**
+```CSS
+/* ===== GitHub API Section ===== */
+#api-message {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #fca5a5;
+}
+
+.project-card a {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.project-card a:hover {
+  text-decoration: underline;
+}
+
+.repo-icon {
+  margin-top: 1rem;
+  font-size: 2rem;
+  color: #c77dff;
+}
+```
+<img width="1280" height="441" alt="image" src="https://github.com/user-attachments/assets/83e8a3ca-efea-4617-8197-b04c97f48068" />
+
+
+
+>This is the layout After modifying AI's generated Code
 
 ---
 
-## 2. Dynamic features
+## 2. Complex Logic
 
+**1) Project List Filtering and Sorting**
+
+**HTML**
 ```html
-<header>
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-</header>
+<!--  PROJECTS  -->
+<section id="projects" class="section">
+  <h2>Projects</h2>
+
+  <div class="project-controls">
+    <button class="filter-btn" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="web">Web</button>
+    <button class="filter-btn" data-filter="mobile">Mobile</button>
+
+    <label for="sort-projects" class="visually-hidden">Sort:</label>
+    <select id="sort-projects">
+      <option value="default">Sort By</option>
+      <option value="name-asc">Name A-Z</option>
+      <option value="name-desc">Name Z-A</option>
+    </select>
+  </div>
+
+  <div class="projects-grid" id="projects-grid">
+    <div class="project-card" data-category="web" data-name="KFUPM Impact Hub">
+      <img src="asset/images/impact-hub.jpg" alt="KFUPM Impact Hub" loading="lazy" width="200" height="200">
+      <h3>KFUPM Impact Hub</h3>
+      <p>Volunteer events and community initiatives platform.</p>
+    </div>
+
+    <div class="project-card" data-category="mobile" data-name="My Super Tour Guide">
+      <img src="asset/images/super-tour.jpg" alt="My Super Tour Guide"  loading="lazy" width="200" height="200">
+      <h3>My Super Tour Guide</h3>
+      <p>Tour booking and travel guide mobile application.</p>
+    </div>
+  </div>
+</section>
+```
+**JavaScript**
+```javascript
+// ===== Project Filter and Sort =====
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const sortSelect = document.getElementById("sort-projects");
+const projectsGrid = document.getElementById("projects-grid");
+
+if (projectsGrid && filterButtons.length > 0 && sortSelect) {
+  const originalCards = Array.from(projectsGrid.querySelectorAll(".project-card"));
+  let currentFilter = "all";
+  let currentSort = "default";
+
+  function renderProjects() {
+    let filteredCards = originalCards.filter(card => {
+      const category = card.dataset.category;
+      return currentFilter === "all" || category === currentFilter;
+    });
+
+    if (currentSort === "name-asc") {
+      filteredCards.sort((a, b) =>
+        a.dataset.name.localeCompare(b.dataset.name)
+      );
+    } else if (currentSort === "name-desc") {
+      filteredCards.sort((a, b) =>
+        b.dataset.name.localeCompare(a.dataset.name)
+      );
+    }
+
+    projectsGrid.innerHTML = "";
+    filteredCards.forEach(card => projectsGrid.appendChild(card));
+  }
+
+  filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      currentFilter = button.dataset.filter;
+      renderProjects();
+    });
+  });
+
+  sortSelect.addEventListener("change", () => {
+    currentSort = sortSelect.value;
+    renderProjects();
+  });
+
+  renderProjects();
+}
+```
+**CSS**
+```CSS
+/* ===== Project Controls ===== */
+.project-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.project-controls button,
+.project-controls select {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.project-controls button {
+  background: #4b0bb1;
+  color: white;
+}
+
+.project-controls select {
+  background: white;
+  color: #111827;
+}
 ```
 <img width="509" height="60" alt="image" src="https://github.com/user-attachments/assets/b61481a3-2248-46ca-8500-047516459df5" />
 
