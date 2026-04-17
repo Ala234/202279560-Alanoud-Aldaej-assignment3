@@ -1,13 +1,12 @@
-# Assignment 2
+# Assignment 3
 
 ## Assignment description
-This assignment is a personal portfolio website that presents basic information about me, my projects, skills, and contact details.
+This assignment is an advanced version of my personal portfolio website. It presents information about me, my projects, skills, and contact details, while also adding more dynamic and interactive features.
 
-This assignment was built using **HTML, CSS, and JavaScript**, with a focus on implementing some interactive features to improve user experience.
+The website was built using **HTML, CSS, and JavaScript**. In this version, I added external API integration, more advanced application logic, state management features, and performance improvements to make the website more interactive, efficient, and user-friendly.
 
 this portfolio were designed by `ALANOUD ALDAEJ`.
 
-Note: the assignment requirment were alraedy done in Assignment 1, details are in (`ai-usage-report.md`).
 
 ## Setup instructions
 1. Make sure **Visual Studio Code** is installed on your device.
@@ -15,7 +14,7 @@ Note: the assignment requirment were alraedy done in Assignment 1, details are i
 3. From the welcome screen, select **Clone a Repository**.
 4. Enter the project repository link:
 ```bash
-https://github.com/Ala234/202279560-Alanoud-Aldaej-assignment1.git
+https://github.com/Ala234/202279560-Alanoud-Aldaej-assignment3.git
 ```
 5. Select a local directory where the project will be saved.
 6. If a security message appears, choose **Trust and Authors**.
@@ -26,7 +25,7 @@ https://github.com/Ala234/202279560-Alanoud-Aldaej-assignment1.git
 - ![portfolio-preview](https://github.com/user-attachments/assets/ec0a1b2f-1c54-4eb8-81a3-d3994dcd3bae)
 
 ## Short summary of AI use
-AI was used to clarify concepts and help with understanding and implementing simple interactive features. It was also used occasionally to assist with debugging and learning how certain features work. The overall work and final decisions were done independently. More details are provided in (`ai-usage-report.md`).
+AI was used to support understanding and implementing interactive features such as API integration, filtering and sorting logic, form validation, and state management. It also assisted with debugging, improving performance, and refining UI/UX design decisions. The overall work and final decisions were done independently. More details are provided in (`ai-usage-report.md`).
 
 ## The portfolio site
 [Alanoud Aldaej](https://ala234.github.io/202279560-Alanoud-Aldaej-assignment3/)-Software Engineer
