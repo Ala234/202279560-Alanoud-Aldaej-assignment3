@@ -291,10 +291,41 @@ if (projectsGrid && filterButtons.length > 0 && sortSelect) {
   color: #111827;
 }
 ```
-<img width="509" height="60" alt="image" src="https://github.com/user-attachments/assets/b61481a3-2248-46ca-8500-047516459df5" />
+[Watch Demo](https://raw.githubusercontent.com/Ala234/202279560-Alanoud-Aldaej-assignment3/refs/heads/main/docs/Demo%201.mp4)
 
-In this part, I used navigation links to allow users to move between different sections of the portfolio such as About, Projects, Skills, and Contact. This makes the website more interactive and easier to use. AI helped me understand how internal navigation works and how it improves the overall user experience.
+In this part, AI was used to assist with implementing the filtering functionality. The initial output had usability issues (buttons were not responsive), so I revised and improved the code to ensure proper functionality.
 
+ ## Applying Modification:
+
+ **JavaScript**
+```javascript
+  filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      currentFilter = button.dataset.filter;
+      renderProjects();
+    });
+  });
+  sortSelect.addEventListener("change", () => {
+    currentSort = sortSelect.value;
+    renderProjects();
+  });
+
+  renderProjects();
+}
+
+ **CSS**
+```css
+.filter-btn.active {
+  outline: 2px solid white;
+  transform: scale(1.05);
+}
+```
+[Watch Demo](https://raw.githubusercontent.com/Ala234/202279560-Alanoud-Aldaej-assignment3/refs/heads/main/docs/Demo%201.mp4)
+
+>This is the layout After modifying AI's generated Code
 ---
 
 ## 3. Smooth interaction
