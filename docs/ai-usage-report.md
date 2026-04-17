@@ -475,11 +475,12 @@ In this part, I evaluated my website using PageSpeed Insights. The initial perfo
 
 ## Benefits
 
-- Improved understanding of how interactive features are implemented.
-- Learned how to use `localStorage` to store user preferences.
-- Better understanding of navigation and user interaction.
-- Improved ability to apply transitions and enhance UI responsiveness.
-- Learned basic form validation and error handling.
+- Improved understanding of how API integration works (fetching and displaying GitHub data).
+- Learned how to implement complex logic such as filtering and sorting data.
+- Gained experience using localStorage for state management and personalization.
+- Better understanding of improving user experience through dynamic content and interaction.
+- Learned how to analyze and improve website performance using PageSpeed Insights.
+- Improved ability to debug and refine UI/UX issues (such as non-working buttons and layout problems).
 
 ---
 
@@ -495,11 +496,11 @@ In this part, I evaluated my website using PageSpeed Insights. The initial perfo
 
 Through using AI tools in this assignment, I learned:
 
--How to implement API integration (e.g., fetching and displaying GitHub repositories).
--How to build complex logic such as filtering and sorting functionality using JavaScript.
--How to debug HTML, CSS, and JavaScript issues effectively.
--How to improve website performance and understand why performance issues occur.
--How to enhance user experience by making the interface more interactive and responsive.
+- How to implement API integration (e.g., fetching and displaying GitHub repositories).
+- How to build complex logic such as filtering and sorting functionality using JavaScript.
+- How to debug HTML, CSS, and JavaScript issues effectively.
+- How to improve website performance and understand why performance issues occur.
+- How to enhance user experience by making the interface more interactive and responsive.
 
 ---
 
